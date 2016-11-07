@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Paw Demo</title>
+	<script type="text/javascript" src="../paw/paw.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/mrdoob/stats.js/master/build/stats.min.js"></script>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<div>Pro tip: Trying using the left and right arrow keys, the space bar, and the mouse.</div>
+	<script>
+		var canvas = document.getElementById("canvas");
+		Paw.initiate(canvas, 480, 360, true);
+
+		var pulljosh = new Paw.sprite(0, 0, 100, null, false);
+		pulljosh.addCostume("costumes/pulljosh_icon.png");
+		pulljosh.costumeNumber = 0;
+
+		var rabbit = new Paw.sprite();
+		rabbit.addCostume("costumes/rabbit.png");
+		rabbit.costumeNumber = 0;
+		rabbit.size = 10;
+
+		var xvel = 0;
+		Paw.loop(function(){
+			if(Paw.keyPressed(" ")) {
+				rabbit.size = 25;
+			} else {
+				rabbit.size = 10;
+			}
+			if(Paw.keyPressed("right")) xvel += 1;
+			if(Paw.keyPressed("left")) xvel -= 1;
+			xvel *= 0.9;
+			rabbit.x += xvel;
+			if(rabbit.x > 300) rabbit.x = -300;
+			if(rabbit.x < -300) rabbit.x = 300;
+			
+			pulljosh.x = Paw.mouse.x;
+			pulljosh.y = Paw.mouse.y;
+			pulljosh.size = 100;
+			pulljosh.direction = Paw.timer * 90;
+		});
+	</script>
+</body>
+</html>
